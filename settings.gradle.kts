@@ -6,6 +6,6 @@ plugins {
 
 rootProject.name = "Lox IDE"
 
-//include(":vm")
-//project(":vm").projectDir = file("/home/deck/IdeaProjects/craftvm/")
+include(":vm")
+project(":vm").projectDir = file("/home/deck/IdeaProjects/craftvm/")
 
