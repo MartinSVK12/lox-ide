@@ -1,6 +1,6 @@
 {
 	"debug_address": "*",
-	"debug_port": 5011,
+	"debug_port": 5005,
 	"disable_gc": false,
 	"jmx_port": -1,
 	"jvm_args": "",
