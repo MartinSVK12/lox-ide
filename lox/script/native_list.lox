@@ -1,0 +1,31 @@
+import "abstract_list.lox";
+
+class NativeList << AbstractList {
+
+    native fun init()
+
+    native fun size(): number
+    native fun isEmpty(): boolean
+
+    native fun add(o: any | nil): boolean
+    native fun insert(index: number, o: any | nil): boolean
+    native fun remove(o: any | nil): boolean
+    native fun removeAt(index: number): boolean
+    native fun contains(o: any | nil): boolean
+    native fun indexOf(o: any | nil): number
+    native fun get(i: number): any | nil
+
+    native fun clear()
+
+    fun forEach(callback: function) {
+        for(var i: number = 0; i < this.size(); i = i + 1){
+            callback(this.get(i));
+        }
+    }
+
+    fun forEachIndexed(callback: function) {
+        for(var i: number = 0; i < this.size(); i = i + 1){
+            callback(i,this.get(i));
+        }
+    }
+}

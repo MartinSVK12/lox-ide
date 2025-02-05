@@ -1,0 +1,9 @@
+.godot/
+/android/
+/build/
+.gradle
+.kotlin
+.idea
+build
+jre
+*.import
