@@ -51,7 +51,7 @@ func update_cache() -> void:
 	highlight(r'\b((interface)(<([A-Za-z0-9_,\\s]*),?>)?)\s+([A-Za-z_][A-Za-z0-9_]*)(?:\s*(<<)\s*([A-Za-z_][A-Za-z0-9_]*))?\b',{2:G.KEYWORD,4:G.TYPE_PARAM,5:G.CLASS_NAME,6:G.KEYWORD,7:G.CLASS_NAME})
 
 	#some keywords again
-	highlight(r'\b(if|while|for|fun)\b',{1: G.KEYWORD})
+	highlight(r'\b(if|else|while|for|fun)\b',{1: G.KEYWORD})
 
 	#variables
 	highlight(r'\b(static\s)?(var)\s+([A-Za-z_][A-Za-z0-9_]*)\b',{1: G.KEYWORD, 2: G.KEYWORD, 3: G.NONE})
