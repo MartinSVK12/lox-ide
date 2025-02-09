@@ -19,6 +19,10 @@ func _ready() -> void:
 			if data[0] != "":
 				current_file = data[0]
 				%ProjectStructureTree.load_file(data[0])
+			if data.size() == 4 and data[3] != null:
+				var cfgs: Array[Dictionary] = data[3]
+				for cfg in cfgs:
+					%RunConfigButton.run_configs.append(RunConfigButton.RunConfig.new(cfg["name"],cfg["file"],cfg["path"],cfg["options"]))
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -27,7 +31,15 @@ func _notification(what: int) -> void:
 			if c is ScriptEdit:
 				c.save()
 				opened_files.append(c.file)
-		SaveSystem.save_data([current_file,current_folder,opened_files],"workspace")
+		var run_configs: Array[Dictionary] = []
+		for cfg in %RunConfigButton.run_configs:
+			run_configs.append({
+				"name": cfg.config_name,
+				"file": cfg.file_name,
+				"path": cfg.load_path,
+				"options": cfg.options
+			})
+		SaveSystem.save_data([current_file,current_folder,opened_files,run_configs],"workspace")
 
 func _process(delta: float) -> void:
 	var w_x = get_tree().get_root().size.x
