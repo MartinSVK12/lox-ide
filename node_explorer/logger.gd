@@ -5,6 +5,7 @@ signal warn_logged(color: bool, raw: bool, s: String)
 signal error_logged(color: bool, raw: bool, s: String)
 
 var trace: bool = false
+var basic: bool = true
 
 func _ready() -> void:
 	info_logged.connect(log_to_stdout,CONNECT_REFERENCE_COUNTED)
@@ -23,26 +24,34 @@ func info(s) -> void:
 			var trace_line: int = trace["line"]
 			if multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer is not OfflineMultiplayerPeer:
 				if OS.has_feature("web"):
+					if basic: info_logged.emit(false,false,s); return
 					info_logged.emit(false,false,"[{0}] [{1}]  ({2}::{3}:{4}) [{6}] {5}".format([time,type,trace_name,trace_function,trace_line,s,multiplayer.get_unique_id()]))
 				else:
+					if basic: info_logged.emit(true,false,s); return
 					info_logged.emit(true,false,"[color=yellow][{0}][/color] [color=green][{1}][/color]  [color=cyan]({2}::{3}:{4})[/color] [color=magenta][{6}][/color] {5}".format([time,type,trace_name,trace_function,trace_line,s,multiplayer.get_unique_id()]))
 			else:
 				if OS.has_feature("web"):
+					if basic: info_logged.emit(false,false,s); return
 					info_logged.emit(false,false,"[{0}] [{1}]  ({2}::{3}:{4}) {5}".format([time,type,trace_name,trace_function,trace_line,s]))
 				else:
+					if basic: info_logged.emit(true,false,s); return
 					info_logged.emit(true,false,"[color=yellow][{0}][/color] [color=green][{1}][/color]  [color=cyan]({2}::{3}:{4})[/color] {5}".format([time,type,trace_name,trace_function,trace_line,s]))
 	else:
 		var type := "INFO"
 		var time := Time.get_time_string_from_system()
 		if  multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer is not OfflineMultiplayerPeer:
 			if OS.has_feature("web"):
+				if basic: info_logged.emit(false,false,s); return
 				info_logged.emit(false,false,"[{0}] [{1}] [{3}] {2}".format([time,type,s,multiplayer.get_unique_id()]))
 			else:
+				if basic: info_logged.emit(true,false,s); return
 				info_logged.emit(true,false,"[color=yellow][{0}][/color] [color=green][{1}][/color] [color=magenta][{3}][/color] {2}".format([time,type,s,multiplayer.get_unique_id()]))
 		else:
 			if OS.has_feature("web"):
+				if basic: info_logged.emit(false,false,s); return
 				info_logged.emit(false,false,"[{0}] [{1}] {2}".format([time,type,s,multiplayer.get_unique_id()]))
 			else:
+				if basic: info_logged.emit(true,false,s); return
 				info_logged.emit(true,false,"[color=yellow][{0}][/color] [color=green][{1}][/color] {2}".format([time,type,s,multiplayer.get_unique_id()]))
 		
 func warn(s) -> void:
@@ -57,26 +66,34 @@ func warn(s) -> void:
 			var trace_line: int = trace["line"]
 			if  multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer is not OfflineMultiplayerPeer:
 				if OS.has_feature("web"):
+					if basic: warn_logged.emit(false,false,s); return
 					warn_logged.emit(false,false,"[{0}] [{1}]  ({2}::{3}:{4}) [{6}] {5}".format([time,type,trace_name,trace_function,trace_line,s,multiplayer.get_unique_id()]))
 				else:
+					if basic: warn_logged.emit(true,false,s); return
 					warn_logged.emit(true,false,"[color=yellow][{0}][/color] [color=orange][{1}][/color]  [color=cyan]({2}::{3}:{4})[/color] [color=magenta][{6}][/color] {5}".format([time,type,trace_name,trace_function,trace_line,s,multiplayer.get_unique_id()]))
 			else:
 				if OS.has_feature("web"):
+					if basic: warn_logged.emit(false,false,s); return
 					warn_logged.emit(false,false,"[{0}] [{1}]  ({2}::{3}:{4}) {5}".format([time,type,trace_name,trace_function,trace_line,s]))
 				else:
+					if basic: warn_logged.emit(true,false,s); return
 					warn_logged.emit(true,false,"[color=yellow][{0}][/color] [color=orange][{1}][/color]  [color=cyan]({2}::{3}:{4})[/color] {5}".format([time,type,trace_name,trace_function,trace_line,s]))
 	else:
 		var type := "WARN"
 		var time := Time.get_time_string_from_system()
 		if  multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer is not OfflineMultiplayerPeer:
 			if OS.has_feature("web"):
+				if basic: warn_logged.emit(false,false,s); return
 				warn_logged.emit(false,false,"[{0}] [{1}] [{3}] {2}".format([time,type,s,multiplayer.get_unique_id()]))
 			else:
+				if basic: warn_logged.emit(true,false,s); return
 				warn_logged.emit(true,false,"[color=yellow][{0}][/color] [color=orange][{1}][/color] [color=magenta][{3}][/color] {2}".format([time,type,s,multiplayer.get_unique_id()]))
 		else:
 			if OS.has_feature("web"):
+				if basic: warn_logged.emit(false,false,s); return
 				warn_logged.emit(false,false,"[{0}] [{1}] {2}".format([time,type,s]))
 			else:
+				if basic: warn_logged.emit(true,false,s); return
 				warn_logged.emit(true,false,"[color=yellow][{0}][/color] [color=orange][{1}][/color] {2}".format([time,type,s]))
 	
 func error(s) -> void:
@@ -91,26 +108,34 @@ func error(s) -> void:
 			var trace_line: int = trace["line"]
 			if  multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer is not OfflineMultiplayerPeer:
 				if OS.has_feature("web"):
+					if basic: error_logged.emit(false,false,s); return
 					error_logged.emit(false,false,"[{0}] [{1}]  ({2}::{3}:{4}) [{6}]] {5}".format([time,type,trace_name,trace_function,trace_line,s,multiplayer.get_unique_id()]))
 				else:
+					if basic: error_logged.emit(true,false,s); return
 					error_logged.emit(true,false,"[color=yellow][{0}][/color] [color=red][{1}][/color] [color=cyan]({2}::{3}:{4})[/color] [color=magenta][{6}][/color] {5}".format([time,type,trace_name,trace_function,trace_line,s,multiplayer.get_unique_id()]))
 			else:
 				if OS.has_feature("web"):
+					if basic: error_logged.emit(false,false,s); return
 					error_logged.emit(false,false,"[{0}] [{1}]  ({2}::{3}:{4}) {5}".format([time,type,trace_name,trace_function,trace_line,s]))
 				else:
+					if basic: error_logged.emit(true,false,s); return
 					error_logged.emit(true,false,"[color=yellow][{0}][/color] [color=red][{1}][/color] [color=cyan]({2}::{3}:{4})[/color] {5}".format([time,type,trace_name,trace_function,trace_line,s]))
 	else:
 		var type := "ERROR"
 		var time := Time.get_time_string_from_system()
 		if  multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer is not OfflineMultiplayerPeer:
 			if OS.has_feature("web"):
+				if basic: error_logged.emit(false,false,s); return
 				error_logged.emit(false,false,"[{0}] [{1}] [{3}] {2}".format([time,type,s,multiplayer.get_unique_id()]))
 			else:
+				if basic: error_logged.emit(true,false,s); return
 				error_logged.emit(true,false,"[color=yellow][{0}][/color] [color=red][{1}][/color] [color=magenta][{3}][/color] {2}".format([time,type,s,multiplayer.get_unique_id()]))
 		else:
 			if OS.has_feature("web"):
+				if basic: error_logged.emit(false,false,s); return
 				error_logged.emit(false,false,"[{0}] [{1}] {2}".format([time,type,s]))
 			else:
+				if basic: error_logged.emit(true,false,s); return
 				error_logged.emit(true,false,"[color=yellow][{0}][/color] [color=red][{1}][/color] {2}".format([time,type,s]))
 
 func log_to_stdout(color: bool, raw:bool, s: String):
