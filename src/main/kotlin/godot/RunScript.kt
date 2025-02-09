@@ -84,8 +84,20 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 		val currentScriptTab = tabs?.getCurrentTabControl() ?: return
 		(currentScriptTab.get("save".asStringName()) as Callable).call()
 		val isDebug = getName().toString() == "DebugButton"
-		val file: String = currentScriptTab.get("file".asStringName()).toString()
-		val folders: Array<String> = (getTree()?.currentScene?.get("folders".asStringName()) as VariantArray<String>).toTypedArray()
+		val cfg: RefCounted? = getNode("%RunConfigButton".asNodePath())?.get("current".asStringName()).let {
+			if (it == Unit) {
+				return@let null
+			}
+			return@let it as RefCounted?
+		}
+		var file: String = currentScriptTab.get("file".asStringName()).toString()
+		var folders: Array<String> = (getTree()?.currentScene?.get("folders".asStringName()) as VariantArray<String>).toTypedArray()
+		var options = ""
+		if(cfg != null){
+			file = cfg.get("file_name".asStringName()).toString()
+			folders = cfg.get("load_path".asStringName()).toString().split(";").toTypedArray()
+			options = cfg.get("options".asStringName()).toString()
+		}
 		val breakpoints: MutableMap<String,IntArray> = mutableMapOf()
 		tabs.getChildren().forEach { node ->
 			val tabFile: String = node.get("file".asStringName()).toString()
@@ -93,7 +105,7 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 			breakpoints[tabFile.split("/").last()] = breakpointedLines.toIntArray().map { it.inc() }.toIntArray()
 		}
 		if(file != ""){
-			currentInterpreter = Lox(arrayOf(file,folders.joinToString(";"),""))
+			currentInterpreter = Lox(arrayOf(file,folders.joinToString(";"),options))
 			currentThread = thread(
 				start = true,
 				name = "Lox Interpreter",

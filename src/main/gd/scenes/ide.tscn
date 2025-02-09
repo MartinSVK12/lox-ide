@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://b44h7eoec4j0q"]
+[gd_scene load_steps=72 format=3 uid="uid://b44h7eoec4j0q"]
 
 [ext_resource type="FontFile" uid="uid://c5p6grn1488p6" path="res://fonts/ttf/JetBrainsMono-Regular.ttf" id="1_6h5v0"]
 [ext_resource type="Script" path="res://src/main/gd/scripts/ide.gd" id="1_b8lc2"]
@@ -10,9 +10,12 @@
 [ext_resource type="Script" path="res://src/main/gd/scripts/show_hide_button.gd" id="3_b31bj"]
 [ext_resource type="Texture2D" uid="uid://citneqm2c0dbb" path="res://src/main/gd/assets/projectDirectory_dark.svg" id="3_saeka"]
 [ext_resource type="Script" path="res://gdj/godot/StopButton.gdj" id="4_425b2"]
+[ext_resource type="Texture2D" uid="uid://8t840jq6ymue" path="res://src/main/gd/assets/chevronDown_dark.svg" id="4_bv045"]
 [ext_resource type="Texture2D" uid="uid://berdfpkxkfcmn" path="res://src/main/gd/assets/stop_dark.svg" id="4_fm740"]
+[ext_resource type="Texture2D" uid="uid://c1cpnkxws4hhb" path="res://src/main/gd/assets/add_dark.svg" id="4_psstv"]
 [ext_resource type="PackedScene" uid="uid://vhav1fjsrark" path="res://node_explorer/node_explorer.tscn" id="4_y6kp3"]
 [ext_resource type="Script" path="res://src/main/gd/scripts/project_structure_tree.gd" id="5_xncdh"]
+[ext_resource type="Script" path="res://src/main/gd/scripts/run_config_button.gd" id="6_jcmg4"]
 [ext_resource type="Texture2D" uid="uid://ccplgt0kirbi0" path="res://src/main/gd/assets/debug_dark.svg" id="8_2pinl"]
 [ext_resource type="Script" path="res://src/main/gd/scripts/script_tabs.gd" id="8_unm2e"]
 [ext_resource type="Texture2D" uid="uid://cdfpju86870y2" path="res://src/main/gd/assets/shell_dark.svg" id="11_ltb7g"]
@@ -28,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://csv8atoiea2pc" path="res://src/main/gd/assets/delete_dark.svg" id="20_tcqbh"]
 [ext_resource type="PackedScene" uid="uid://bry7ni48u0o2o" path="res://src/main/gd/scenes/error_line.tscn" id="21_httbx"]
 [ext_resource type="Script" path="res://src/main/gd/scripts/problems_container.gd" id="25_2qej6"]
+[ext_resource type="Script" path="res://src/main/gd/scripts/edit_run_config_dialog.gd" id="31_5ymey"]
 
 [sub_resource type="Theme" id="Theme_es5xm"]
 default_font = ExtResource("1_6h5v0")
@@ -39,6 +43,8 @@ bg_color = Color(0.133333, 0.133333, 0.133333, 1)
 bg_color = Color(0.133333, 0.133333, 0.133333, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d3vod"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v8ikd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4rb8"]
 content_margin_left = 48.0
@@ -177,6 +183,10 @@ bg_color = Color(0.133333, 0.133333, 0.133333, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7so76"]
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ha6if"]
+color = Color(1, 1, 1, 1)
+thickness = 2
+
 [node name="IDE" type="PanelContainer"]
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 15
@@ -225,6 +235,21 @@ size_flags_horizontal = 3
 [node name="VSeparator2" type="Control" parent="Screen/TopToolbar/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="RunConfigButton" type="MenuButton" parent="Screen/TopToolbar/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v8ikd")
+text = "Current File"
+icon = ExtResource("4_bv045")
+item_count = 3
+popup/item_0/text = "Current File"
+popup/item_1/id = 1
+popup/item_1/separator = true
+popup/item_2/text = "Add run configuration..."
+popup/item_2/icon = ExtResource("4_psstv")
+popup/item_2/id = 999
+script = ExtResource("6_jcmg4")
 
 [node name="StopButton" type="Button" parent="Screen/TopToolbar/VBox"]
 unique_name_in_owner = true
@@ -587,6 +612,7 @@ theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_aehne")
 all_tabs_in_front = true
 drag_to_rearrange_enabled = true
 script = ExtResource("8_unm2e")
+metadata/_edit_lock_ = true
 
 [node name="ErrorBar" type="PanelContainer" parent="Screen/MainPanel/ScriptEdit/VBox"]
 visible = false
@@ -874,12 +900,14 @@ grow_horizontal = 2
 text = "Problems"
 
 [node name="Window" parent="." instance=ExtResource("4_y6kp3")]
+initial_position = 3
+current_screen = 0
 visible = false
 
 [node name="FileDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true
 title = "Open a File"
-initial_position = 1
+initial_position = 4
 size = Vector2i(768, 512)
 ok_button_text = "Open"
 file_mode = 0
@@ -908,7 +936,7 @@ item_5/id = 5
 unique_name_in_owner = true
 auto_translate_mode = 1
 position = Vector2i(100, 100)
-size = Vector2i(116, 120)
+size = Vector2i(145, 120)
 item_count = 3
 item_0/text = "Rename | Move"
 item_1/id = 1
@@ -919,7 +947,7 @@ item_2/id = 2
 [node name="DeleteConfirmationDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
 title = "Delete file?"
-initial_position = 1
+initial_position = 4
 size = Vector2i(419, 178)
 ok_button_text = "Yes"
 dialog_text = "Are you sure you want to delete this file?
@@ -932,7 +960,7 @@ This cannot be undone!
 [node name="CreateDirDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
 title = "Create new folder?"
-initial_position = 1
+initial_position = 4
 size = Vector2i(419, 178)
 ok_button_text = "Create"
 
@@ -954,7 +982,7 @@ layout_mode = 2
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Rename or move?"
-initial_position = 1
+initial_position = 4
 size = Vector2i(419, 178)
 ok_button_text = "Rename | Move"
 
@@ -976,7 +1004,7 @@ layout_mode = 2
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Create new file?"
-initial_position = 1
+initial_position = 4
 size = Vector2i(419, 178)
 ok_button_text = "Create"
 
@@ -996,7 +1024,104 @@ layout_mode = 2
 
 [node name="AlertDialog" type="AcceptDialog" parent="."]
 unique_name_in_owner = true
-initial_position = 1
+initial_position = 4
+
+[node name="AddRunConfigDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Add new run configuration?"
+initial_position = 4
+size = Vector2i(419, 312)
+ok_button_text = "Create"
+
+[node name="VBox" type="VBoxContainer" parent="AddRunConfigDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 411.0
+offset_bottom = 264.0
+alignment = 1
+
+[node name="Label4" type="Label" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Enter run configuration name:"
+
+[node name="ConfigName" type="LineEdit" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+
+[node name="VSeparator" type="HSeparator" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxLine_ha6if")
+
+[node name="Label" type="Label" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Enter file name:"
+
+[node name="FileName" type="LineEdit" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Load path:"
+
+[node name="PathLine" type="LineEdit" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Interpreter options:"
+
+[node name="OptionsLine" type="LineEdit" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+
+[node name="EditRunConfigDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Edit run configuration?"
+initial_position = 4
+size = Vector2i(419, 312)
+ok_button_text = "Save"
+script = ExtResource("31_5ymey")
+
+[node name="VBox" type="VBoxContainer" parent="EditRunConfigDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 411.0
+offset_bottom = 264.0
+alignment = 1
+
+[node name="Label4" type="Label" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Enter run configuration name:"
+
+[node name="ConfigName" type="LineEdit" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+
+[node name="VSeparator" type="HSeparator" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxLine_ha6if")
+
+[node name="Label" type="Label" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Enter file name:"
+
+[node name="FileName" type="LineEdit" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Load path:"
+
+[node name="PathLine" type="LineEdit" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Interpreter options:"
+
+[node name="OptionsLine" type="LineEdit" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
 
 [node name="CodeAnalysis" type="Node" parent="."]
 unique_name_in_owner = true
@@ -1005,6 +1130,7 @@ script = ExtResource("20_2js6u")
 [node name="Timer" type="Timer" parent="CodeAnalysis"]
 autostart = true
 
+[connection signal="pressed" from="Screen/TopToolbar/VBox/RunConfigButton" to="Screen/TopToolbar/VBox/RunConfigButton" method="_on_pressed"]
 [connection signal="pressed" from="Screen/TopToolbar/VBox/StopButton" to="Screen/TopToolbar/VBox/StopButton" method="_on_pressed"]
 [connection signal="pressed" from="Screen/TopToolbar/VBox/RunButton" to="Screen/TopToolbar/VBox/RunButton" method="_on_pressed"]
 [connection signal="pressed" from="Screen/TopToolbar/VBox/DebugButton" to="Screen/TopToolbar/VBox/DebugButton" method="_on_pressed"]
@@ -1030,5 +1156,9 @@ autostart = true
 [connection signal="confirmed" from="CreateDirDialog" to="Screen/MainPanel/ProjectStructure/HBox/VBox/ProjectStructureTree" method="_on_create_dir_dialog_confirmed"]
 [connection signal="confirmed" from="RenameDialog" to="Screen/MainPanel/ProjectStructure/HBox/VBox/ProjectStructureTree" method="_on_rename_dialog_confirmed"]
 [connection signal="confirmed" from="CreateFileDialog" to="Screen/MainPanel/ProjectStructure/HBox/VBox/ProjectStructureTree" method="_on_create_file_dialog_confirmed"]
+[connection signal="confirmed" from="AddRunConfigDialog" to="Screen/TopToolbar/VBox/RunConfigButton" method="_on_add_run_config_dialog_confirmed"]
+[connection signal="about_to_popup" from="EditRunConfigDialog" to="EditRunConfigDialog" method="_on_about_to_popup"]
+[connection signal="confirmed" from="EditRunConfigDialog" to="EditRunConfigDialog" method="_on_confirmed"]
+[connection signal="custom_action" from="EditRunConfigDialog" to="Screen/TopToolbar/VBox/RunConfigButton" method="_on_edit_run_config_dialog_custom_action"]
 [connection signal="analysis_completed" from="CodeAnalysis" to="Screen/MainPanel/ScriptEdit/VBox/ErrorBar" method="_on_code_analysis_completed"]
 [connection signal="timeout" from="CodeAnalysis/Timer" to="CodeAnalysis" method="_on_timer_timeout"]
