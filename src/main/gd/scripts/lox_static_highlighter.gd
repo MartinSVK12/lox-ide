@@ -65,7 +65,7 @@ func update_cache() -> void:
 	#functions
 	highlight(r'(native)\s((?!if\(|for\(|while\(\b)\b\w+)\(.*?\)',{1: G.KEYWORD, 2: G.FUNCTION})
 	highlight(r'(fun)\s((?!if\(|for\(|while\(\b)\b\w+)\(.*?\)\s?{',{1: G.KEYWORD, 2: G.FUNCTION})
-	highlight(r'(fun)\s((?!if\(|for\(|while\(\b)\b\w+)\(.*?\):',{1: G.KEYWORD, 2: G.FUNCTION})
+	highlight(r'(fun)\s((?!if\(|for\(|while\(\b)\b\w+)\(.*?\)',{1: G.KEYWORD, 2: G.FUNCTION})
 	#highlight(r'((?!if\(|for\(|while\(\b)\b\w+)\(.*?\):',{1:G.FUNCTION})
 	#highlight(r'[^\.]((?!if\(|for\(|while\(\b)\b\w+)\(.*?\)\s?(?!\)|\;)',{1:G.FUNCTION})
 
