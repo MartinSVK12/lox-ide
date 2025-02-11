@@ -1,6 +1,6 @@
 import "list.lox";
 
-var list: List<number> = List();
+var list: List<number> = List(<number>);
 
 print(list);
 print(list.size());

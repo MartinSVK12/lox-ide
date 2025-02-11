@@ -53,5 +53,5 @@ godot {
 }
 
 dependencies {
-    implementation(project(":vm"))
+    implementation(project(":lox"))
 }

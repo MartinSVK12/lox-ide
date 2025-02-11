@@ -1,16 +1,6 @@
-class A {
-    static var i: number = 0;
-}
+import "list.lox";
 
-class B {
-    var clazz: class<A> = A;
-}
+var list: List<number> = List(<number>);
 
-class C {
-    static var s: string = "hi!";
-    var anotherClazz: class<B> = B;
-}
-
-var c: C = C();
-
-print(c);
+print(getmethods(list));
+print(getfields(list));

@@ -5,7 +5,7 @@
 	"jmx_port": -1,
 	"jvm_args": "",
 	"max_string_size": -1,
-	"use_debug": false,
+	"use_debug": true,
 	"version": "1.0",
 	"vm_type": "auto",
 	"wait_for_debugger": false
