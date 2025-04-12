@@ -3,8 +3,10 @@ package godot
 import godot.annotation.RegisterClass
 import godot.annotation.RegisterFunction
 import godot.annotation.RegisterSignal
+import godot.api.CodeEdit
+import godot.api.Node
+import godot.api.TabContainer
 import godot.core.*
-import godot.global.GD
 import sunsetsatellite.lang.lox.LogEntryReceiver
 import sunsetsatellite.lang.lox.Lox
 import sunsetsatellite.lang.lox.Stmt
@@ -21,8 +23,8 @@ class CodeAnalysis: Node() {
         var inProgress = false
     }
 
-    @RegisterSignal
-    val analysisCompleted by signal2<VariantArray<String>,VariantArray<Dictionary<Any?,Any?>>>("errors","tokens")
+    @RegisterSignal("errors","tokens")
+    val analysisCompleted by signal2<VariantArray<String>,VariantArray<Dictionary<Any?,Any?>>>()
     
     // Called when the node enters the scene tree for the first time.
     @RegisterFunction
@@ -46,9 +48,9 @@ class CodeAnalysis: Node() {
             "line" to it.line,
             "pos" to Vector2i(it.pos.start,it.pos.end))
         }?.toVariantArray()
-        godot.Thread.setThreadSafetyChecksEnabled(false)
+        godot.api.Thread.setThreadSafetyChecksEnabled(false)
         analysisCompleted.emit(errors.toVariantArray(), tokens ?: variantArrayOf())
-        godot.Thread.setThreadSafetyChecksEnabled(true)
+        godot.api.Thread.setThreadSafetyChecksEnabled(true)
     }
 
     @RegisterFunction

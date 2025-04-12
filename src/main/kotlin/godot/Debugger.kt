@@ -2,11 +2,13 @@ package godot
 
 import godot.annotation.RegisterClass
 import godot.annotation.RegisterFunction
+import godot.api.*
 import godot.core.*
 import sunsetsatellite.lang.lox.Environment
 import sunsetsatellite.lang.lox.Lox
 import sunsetsatellite.lang.lox.LoxClass
 import sunsetsatellite.lang.lox.LoxClassInstance
+import java.lang.Object
 
 @RegisterClass
 class Debugger: Node() {
@@ -61,8 +63,8 @@ class Debugger: Node() {
 			traceButton.setText(currentEnv.toString())
 			traceButton.alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
 			traceButton.setMeta("env_index".asStringName(),i)
-			traceButton.addThemeStyleboxOverride("focus".asStringName(),StyleBoxEmpty())
-			traceButton.pressed.connect(flags = Object.ConnectFlags.CONNECT_REFERENCE_COUNTED.id.toInt()) {
+			traceButton.addThemeStyleboxOverride("focus".asStringName(), StyleBoxEmpty())
+			traceButton.pressed.connect(flags = godot.api.Object.ConnectFlags.CONNECT_REFERENCE_COUNTED.id.toInt()) {
 				val index = (traceButton.getMeta("env_index".asStringName()) as Long).toInt()
 				displayEnvValues(envs[index])
 			}

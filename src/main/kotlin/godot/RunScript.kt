@@ -4,6 +4,7 @@ package godot
 
 import godot.annotation.RegisterClass
 import godot.annotation.RegisterFunction
+import godot.api.*
 import godot.core.*
 import godot.global.GD
 import sunsetsatellite.lang.lox.BreakpointListener
@@ -144,8 +145,8 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 
 	override fun breakpointHit(line: Int, file: String?, lox: Lox, env: Environment) {
 		GD.print("Breakpoint hit on line $line!")
-		godot.Thread.setThreadSafetyChecksEnabled(false)
+		Thread.setThreadSafetyChecksEnabled(false)
 		(getNode("%Debugger".asNodePath()) as Debugger).breakpointHit(line, file, lox, env)
-		godot.Thread.setThreadSafetyChecksEnabled(true)
+		Thread.setThreadSafetyChecksEnabled(true)
 	}
 }

@@ -1,37 +1,37 @@
 [gd_scene load_steps=72 format=3 uid="uid://b44h7eoec4j0q"]
 
 [ext_resource type="FontFile" uid="uid://c5p6grn1488p6" path="res://fonts/ttf/JetBrainsMono-Regular.ttf" id="1_6h5v0"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/ide.gd" id="1_b8lc2"]
-[ext_resource type="Script" path="res://gdj/godot/RunScript.gdj" id="1_ngyvn"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/file_button.gd" id="2_0xi4o"]
+[ext_resource type="Script" uid="uid://dky6jt2mrw3gl" path="res://src/main/gd/scripts/ide.gd" id="1_b8lc2"]
+[ext_resource type="Script" uid="uid://cnv0lj7flb8q" path="res://gdj/godot/RunScript.gdj" id="1_ngyvn"]
+[ext_resource type="Script" uid="uid://b6g3psph3mcka" path="res://src/main/gd/scripts/file_button.gd" id="2_0xi4o"]
 [ext_resource type="Texture2D" uid="uid://de8cvuh6qi3wa" path="res://src/main/gd/assets/run_dark.svg" id="2_liibc"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/fps.gd" id="3_2das7"]
+[ext_resource type="Script" uid="uid://dbiluevny4dwp" path="res://src/main/gd/scripts/fps.gd" id="3_2das7"]
 [ext_resource type="Texture2D" uid="uid://cv1acf6dvdn8k" path="res://src/main/gd/assets/properties_dark.svg" id="3_87qhu"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/show_hide_button.gd" id="3_b31bj"]
+[ext_resource type="Script" uid="uid://dxxmqsw6su5ee" path="res://src/main/gd/scripts/show_hide_button.gd" id="3_b31bj"]
 [ext_resource type="Texture2D" uid="uid://citneqm2c0dbb" path="res://src/main/gd/assets/projectDirectory_dark.svg" id="3_saeka"]
-[ext_resource type="Script" path="res://gdj/godot/StopButton.gdj" id="4_425b2"]
+[ext_resource type="Script" uid="uid://ckokoy2ah0pqc" path="res://gdj/godot/StopButton.gdj" id="4_425b2"]
 [ext_resource type="Texture2D" uid="uid://8t840jq6ymue" path="res://src/main/gd/assets/chevronDown_dark.svg" id="4_bv045"]
 [ext_resource type="Texture2D" uid="uid://berdfpkxkfcmn" path="res://src/main/gd/assets/stop_dark.svg" id="4_fm740"]
 [ext_resource type="Texture2D" uid="uid://c1cpnkxws4hhb" path="res://src/main/gd/assets/add_dark.svg" id="4_psstv"]
 [ext_resource type="PackedScene" uid="uid://vhav1fjsrark" path="res://node_explorer/node_explorer.tscn" id="4_y6kp3"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/project_structure_tree.gd" id="5_xncdh"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/run_config_button.gd" id="6_jcmg4"]
+[ext_resource type="Script" uid="uid://crrgvctct5yxg" path="res://src/main/gd/scripts/project_structure_tree.gd" id="5_xncdh"]
+[ext_resource type="Script" uid="uid://bdp8seyok8efw" path="res://src/main/gd/scripts/run_config_button.gd" id="6_jcmg4"]
 [ext_resource type="Texture2D" uid="uid://ccplgt0kirbi0" path="res://src/main/gd/assets/debug_dark.svg" id="8_2pinl"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/script_tabs.gd" id="8_unm2e"]
+[ext_resource type="Script" uid="uid://c507loevbtkxk" path="res://src/main/gd/scripts/script_tabs.gd" id="8_unm2e"]
 [ext_resource type="Texture2D" uid="uid://cdfpju86870y2" path="res://src/main/gd/assets/shell_dark.svg" id="11_ltb7g"]
 [ext_resource type="Texture2D" uid="uid://b8qo3y754d4xj" path="res://src/main/gd/assets/refresh_dark.svg" id="12_n1gn0"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/refresh_button.gd" id="13_rh4go"]
+[ext_resource type="Script" uid="uid://bj41fukhgwjgn" path="res://src/main/gd/scripts/refresh_button.gd" id="13_rh4go"]
 [ext_resource type="Texture2D" uid="uid://ial1dt7opikc" path="res://src/main/gd/assets/debug_window_dark.svg" id="13_t8a2f"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/terminal_window.gd" id="14_6jfw2"]
+[ext_resource type="Script" uid="uid://d2lhoq366mdh2" path="res://src/main/gd/scripts/terminal_window.gd" id="14_6jfw2"]
 [ext_resource type="Texture2D" uid="uid://smi8dc0je7e0" path="res://src/main/gd/assets/problems_dark.svg" id="14_wnw1h"]
 [ext_resource type="PackedScene" uid="uid://bygwoqytp0ruq" path="res://src/main/gd/scenes/move_bar.tscn" id="18_8p4dp"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/error_bar.gd" id="18_8u764"]
-[ext_resource type="Script" path="res://gdj/godot/CodeAnalysis.gdj" id="20_2js6u"]
-[ext_resource type="Script" path="res://gdj/godot/Debugger.gdj" id="20_gg788"]
+[ext_resource type="Script" uid="uid://bgta4nnmyqvbq" path="res://src/main/gd/scripts/error_bar.gd" id="18_8u764"]
+[ext_resource type="Script" uid="uid://0dwwh4a8w0ap" path="res://gdj/godot/CodeAnalysis.gdj" id="20_2js6u"]
+[ext_resource type="Script" uid="uid://cmxh5othnkn3n" path="res://gdj/godot/Debugger.gdj" id="20_gg788"]
 [ext_resource type="Texture2D" uid="uid://csv8atoiea2pc" path="res://src/main/gd/assets/delete_dark.svg" id="20_tcqbh"]
 [ext_resource type="PackedScene" uid="uid://bry7ni48u0o2o" path="res://src/main/gd/scenes/error_line.tscn" id="21_httbx"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/problems_container.gd" id="25_2qej6"]
-[ext_resource type="Script" path="res://src/main/gd/scripts/edit_run_config_dialog.gd" id="31_5ymey"]
+[ext_resource type="Script" uid="uid://bnyp4scynqlct" path="res://src/main/gd/scripts/problems_container.gd" id="25_2qej6"]
+[ext_resource type="Script" uid="uid://yssuc7x262i3" path="res://src/main/gd/scripts/edit_run_config_dialog.gd" id="31_5ymey"]
 
 [sub_resource type="Theme" id="Theme_es5xm"]
 default_font = ExtResource("1_6h5v0")
@@ -220,6 +220,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_d3vod")
 text = "File"
 item_count = 4
 popup/item_0/text = "Open File..."
+popup/item_0/id = 0
 popup/item_1/text = "Open Folder..."
 popup/item_1/id = 1
 popup/item_2/id = 2
@@ -244,6 +245,7 @@ text = "Current File"
 icon = ExtResource("4_bv045")
 item_count = 3
 popup/item_0/text = "Current File"
+popup/item_0/id = 0
 popup/item_1/id = 1
 popup/item_1/separator = true
 popup/item_2/text = "Add run configuration..."
@@ -539,8 +541,8 @@ script = ExtResource("13_rh4go")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/parent_hl_line_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_colors/children_hl_line_color = Color(0.3, 0.3, 0.3, 1)
+theme_override_colors/parent_hl_line_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_constants/draw_guides = 0
 theme_override_constants/draw_relationship_lines = 1
 theme_override_constants/relationship_line_width = 2
@@ -921,6 +923,7 @@ position = Vector2i(100, 100)
 size = Vector2i(116, 120)
 item_count = 6
 item_0/text = "Add File"
+item_0/id = 0
 item_1/text = "Add Folder"
 item_1/id = 1
 item_2/id = 2
@@ -939,6 +942,7 @@ position = Vector2i(100, 100)
 size = Vector2i(145, 120)
 item_count = 3
 item_0/text = "Rename | Move"
+item_0/id = 0
 item_1/id = 1
 item_1/separator = true
 item_2/text = "Delete"

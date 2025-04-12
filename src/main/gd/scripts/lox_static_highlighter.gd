@@ -47,8 +47,8 @@ func update_cache() -> void:
 	highlight(r'\b(static|native|dynamic)\b',{1: G.KEYWORD})
 
 	#class, interface definitions
-	highlight(r'\b((class)(<([A-Za-z0-9_,\\s]*),?>)?)\s+([A-Za-z_][A-Za-z0-9_]*)(?:\s*(<)\s*([A-Za-z_][A-Za-z0-9_]*))?(?:\s*(<<)\s*([A-Za-z_][A-Za-z0-9_]*))?\b',{2:G.KEYWORD,4:G.TYPE_PARAM,5:G.CLASS_NAME,6:G.KEYWORD,7:G.CLASS_NAME,8:G.KEYWORD,9:G.CLASS_NAME})
-	highlight(r'\b((interface)(<([A-Za-z0-9_,\\s]*),?>)?)\s+([A-Za-z_][A-Za-z0-9_]*)(?:\s*(<<)\s*([A-Za-z_][A-Za-z0-9_]*))?\b',{2:G.KEYWORD,4:G.TYPE_PARAM,5:G.CLASS_NAME,6:G.KEYWORD,7:G.CLASS_NAME})
+	highlight(r'\b((class)(<([A-Za-z0-9_,\\s]*),?>)?)\s+([A-Za-z_][A-Za-z0-9_]*)(?:\s*(extends)\s*([A-Za-z_][A-Za-z0-9_]*))?(?:\s*(implements)\s*([A-Za-z_][A-Za-z0-9_]*))?\b',{2:G.KEYWORD,4:G.TYPE_PARAM,5:G.CLASS_NAME,6:G.KEYWORD,7:G.CLASS_NAME,8:G.KEYWORD,9:G.CLASS_NAME})
+	highlight(r'\b((interface)(<([A-Za-z0-9_,\\s]*),?>)?)\s+([A-Za-z_][A-Za-z0-9_]*)(?:\s*(implements)\s*([A-Za-z_][A-Za-z0-9_]*))?\b',{2:G.KEYWORD,4:G.TYPE_PARAM,5:G.CLASS_NAME,6:G.KEYWORD,7:G.CLASS_NAME})
 
 	#some keywords again
 	highlight(r'\b(if|else|while|for|fun)\b',{1: G.KEYWORD})
@@ -87,7 +87,7 @@ func update_cache() -> void:
 
 	#keywordss
 	highlight(r'(this|super|(return))',{1: G.CONSTANT, 2: G.KEYWORD})
-	highlight(r'\b(if|else|while|for|and|or|break|continue|is|isnt|as|import|fun)\b',{1: G.KEYWORD})
+	highlight(r'\b(if|else|while|for|and|or|break|continue|is|isnt|as|import|fun|implements|extends)\b',{1: G.KEYWORD})
 
 	#boolean
 	highlight(r'\b(true|false)\b',{0: G.CONSTANT})

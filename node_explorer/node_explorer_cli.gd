@@ -591,7 +591,7 @@ func _ready() -> void:
 
 func input_loop() -> void:
 	while true:
-		var input = OS.read_string_from_stdin()
+		var input = OS.read_string_from_stdin(65535)
 		if input.replace("\n","").replace("\r","") == "ne":
 			call_deferred_thread_group("parse_action","",[])
 			continue

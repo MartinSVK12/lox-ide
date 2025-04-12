@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bygwoqytp0ruq"]
 
-[ext_resource type="Script" path="res://src/main/gd/scripts/move_bar.gd" id="1_o8wt4"]
+[ext_resource type="Script" uid="uid://c05ls1m6uourh" path="res://src/main/gd/scripts/move_bar.gd" id="1_o8wt4"]
 
 [node name="MoveBar" type="ColorRect"]
 custom_minimum_size = Vector2(4, 0)
