@@ -1,14 +1,14 @@
 package godot
 
-import sunsetsatellite.lang.lox.Interpreter
-import sunsetsatellite.lang.lox.Lox
-import sunsetsatellite.lang.lox.LoxCallable
-import sunsetsatellite.lang.lox.Type
+import sunsetsatellite.interpreter.sunlite.Interpreter
+import sunsetsatellite.lang.sunlite.Sunlite
+import sunsetsatellite.interpreter.sunlite.LoxCallable
+import sunsetsatellite.lang.sunlite.Type
 
 object GdLoxGlobals {
 
-    fun registerGlobals(lox: Lox) {
-        lox.globals["print"] = object : LoxCallable {
+    fun registerGlobals(sunlite: Sunlite) {
+        sunlite.globals["print"] = object : LoxCallable {
             override fun call(interpreter: Interpreter, arguments: List<Any?>?, typeArguments: List<Type>): Any? {
                 RunScript.logInfo(arguments?.get(0).toString())
                 return null
@@ -34,7 +34,7 @@ object GdLoxGlobals {
             }
         }
 
-        lox.globals["printerr"] = object : LoxCallable {
+        sunlite.globals["printerr"] = object : LoxCallable {
             override fun call(interpreter: Interpreter, arguments: List<Any?>?, typeArguments: List<Type>): Any? {
                 RunScript.logError(arguments?.get(0).toString())
                 return null

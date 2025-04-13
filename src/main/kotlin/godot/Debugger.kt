@@ -4,18 +4,17 @@ import godot.annotation.RegisterClass
 import godot.annotation.RegisterFunction
 import godot.api.*
 import godot.core.*
-import sunsetsatellite.lang.lox.Environment
-import sunsetsatellite.lang.lox.Lox
-import sunsetsatellite.lang.lox.LoxClass
-import sunsetsatellite.lang.lox.LoxClassInstance
-import java.lang.Object
+import sunsetsatellite.interpreter.sunlite.Environment
+import sunsetsatellite.lang.sunlite.Sunlite
+import sunsetsatellite.interpreter.sunlite.LoxClass
+import sunsetsatellite.interpreter.sunlite.LoxClassInstance
 
 @RegisterClass
 class Debugger: Node() {
 
 	var currentBreakpointLine: Int = -1
 	var currentBreakpointFile: String? = null
-	var currentBreakpointInterpreter: Lox? = null
+	var currentBreakpointInterpreter: Sunlite? = null
 	var currentBreakpointEnv: Environment? = null
 	var envs: MutableList<Environment> = mutableListOf()
 
@@ -41,12 +40,12 @@ class Debugger: Node() {
 		}
 	}
 
-	fun breakpointHit(line: Int, file: String?, lox: Lox, env: Environment?) {
+	fun breakpointHit(line: Int, file: String?, sunlite: Sunlite, env: Environment?) {
 		(getNode("%DebuggerButton".asNodePath()) as Button).setPressed(true)
 		currentBreakpointLine = line
 		currentBreakpointFile = file
 		currentBreakpointEnv = env
-		currentBreakpointInterpreter = lox
+		currentBreakpointInterpreter = sunlite
 		val tree = this.getNode("%ProjectStructureTree".asNodePath()) as Tree?
 		(tree?.get("load_file".asStringName()) as Callable).call(file)
 		val tabs = this.getNode("%ScriptTabs".asNodePath()) as TabContainer?

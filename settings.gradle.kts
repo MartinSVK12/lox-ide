@@ -4,8 +4,8 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.6.0"
 }
 
-rootProject.name = "Lox IDE"
+rootProject.name = "SLIDE"
 
-include(":lox")
-project(":lox").projectDir = file("../vm")
+include(":sl")
+project(":sl").projectDir = file("../vm")
 

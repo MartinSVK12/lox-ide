@@ -7,10 +7,10 @@ import godot.api.CodeEdit
 import godot.api.Node
 import godot.api.TabContainer
 import godot.core.*
-import sunsetsatellite.lang.lox.LogEntryReceiver
-import sunsetsatellite.lang.lox.Lox
-import sunsetsatellite.lang.lox.Stmt
-import sunsetsatellite.lang.lox.Token
+import sunsetsatellite.lang.sunlite.LogEntryReceiver
+import sunsetsatellite.lang.sunlite.Sunlite
+import sunsetsatellite.lang.sunlite.Stmt
+import sunsetsatellite.lang.sunlite.Token
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.lang.Thread
@@ -87,10 +87,10 @@ class CodeAnalysis: Node() {
                 start = true,
                 name = "Lox Code Analysis",
             ) {
-                val lox = Lox(arrayOf(file,loadPath.joinToString(";")))
-                lox.logEntryReceivers.add(this)
-                GdLoxGlobals.registerGlobals(lox)
-                val result = lox.parse(code)
+                val sunlite = Sunlite(arrayOf(file,loadPath.joinToString(";")))
+                sunlite.logEntryReceivers.add(this)
+                GdLoxGlobals.registerGlobals(sunlite)
+                val result = sunlite.parse(code)
                 result ?: analysis.analysisFinished(errors)
                 analysis.analysisFinished(errors,result)
             }

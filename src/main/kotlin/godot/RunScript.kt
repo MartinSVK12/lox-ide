@@ -7,10 +7,10 @@ import godot.annotation.RegisterFunction
 import godot.api.*
 import godot.core.*
 import godot.global.GD
-import sunsetsatellite.lang.lox.BreakpointListener
-import sunsetsatellite.lang.lox.Environment
-import sunsetsatellite.lang.lox.LogEntryReceiver
-import sunsetsatellite.lang.lox.Lox
+import sunsetsatellite.lang.sunlite.BreakpointListener
+import sunsetsatellite.interpreter.sunlite.Environment
+import sunsetsatellite.lang.sunlite.LogEntryReceiver
+import sunsetsatellite.lang.sunlite.Sunlite
 import java.io.PrintWriter
 import java.io.StringWriter
 import kotlin.concurrent.thread
@@ -21,7 +21,7 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 
 	companion object {
 		var currentThread: java.lang.Thread? = null
-		var currentInterpreter: Lox? = null
+		var currentInterpreter: Sunlite? = null
 		var logger: Node? = null
 
 		fun logInfo(s: String) {
@@ -106,7 +106,7 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 			breakpoints[tabFile.split("/").last()] = breakpointedLines.toIntArray().map { it.inc() }.toIntArray()
 		}
 		if(file != ""){
-			currentInterpreter = Lox(arrayOf(file,folders.joinToString(";"),options))
+			currentInterpreter = Sunlite(arrayOf(file,folders.joinToString(";"),options))
 			currentThread = thread(
 				start = true,
 				name = "Lox Interpreter",
@@ -143,10 +143,10 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 		logError(message)
 	}
 
-	override fun breakpointHit(line: Int, file: String?, lox: Lox, env: Environment) {
+	override fun breakpointHit(line: Int, file: String?, sunlite: Sunlite, env: Environment) {
 		GD.print("Breakpoint hit on line $line!")
 		Thread.setThreadSafetyChecksEnabled(false)
-		(getNode("%Debugger".asNodePath()) as Debugger).breakpointHit(line, file, lox, env)
+		(getNode("%Debugger".asNodePath()) as Debugger).breakpointHit(line, file, sunlite, env)
 		Thread.setThreadSafetyChecksEnabled(true)
 	}
 }
