@@ -8,7 +8,6 @@ import godot.api.*
 import godot.core.*
 import godot.global.GD
 import sunsetsatellite.lang.sunlite.BreakpointListener
-import sunsetsatellite.interpreter.sunlite.Environment
 import sunsetsatellite.lang.sunlite.LogEntryReceiver
 import sunsetsatellite.lang.sunlite.Sunlite
 import java.io.PrintWriter
@@ -143,10 +142,10 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 		logError(message)
 	}
 
-	override fun breakpointHit(line: Int, file: String?, sunlite: Sunlite, env: Environment) {
+	override fun breakpointHit(line: Int, file: String?, sunlite: Sunlite) {
 		GD.print("Breakpoint hit on line $line!")
 		Thread.setThreadSafetyChecksEnabled(false)
-		(getNode("%Debugger".asNodePath()) as Debugger).breakpointHit(line, file, sunlite, env)
+		(getNode("%Debugger".asNodePath()) as Debugger).breakpointHit(line, file, sunlite)
 		Thread.setThreadSafetyChecksEnabled(true)
 	}
 }

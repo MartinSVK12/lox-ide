@@ -4,10 +4,7 @@ import godot.annotation.RegisterClass
 import godot.annotation.RegisterFunction
 import godot.api.*
 import godot.core.*
-import sunsetsatellite.interpreter.sunlite.Environment
 import sunsetsatellite.lang.sunlite.Sunlite
-import sunsetsatellite.interpreter.sunlite.LoxClass
-import sunsetsatellite.interpreter.sunlite.LoxClassInstance
 
 @RegisterClass
 class Debugger: Node() {
@@ -28,7 +25,7 @@ class Debugger: Node() {
 	@RegisterFunction
 	override fun _process(delta: Double) {
 		val label = getNode("%DebuggerStatusLabel".asNodePath()) as Label
-		if(RunScript.currentThread?.isAlive == true && RunScript.currentInterpreter?.interpreter?.breakpointHit == false) {
+		if(RunScript.currentThread?.isAlive == true /*&& RunScript.currentInterpreter?.interpreter?.breakpointHit == false*/) {
 			label.setText("Running...")
 			label.labelSettings?.setFontColor(Color("40ff40"))
 		} else if(RunScript.currentInterpreter == null) {
@@ -40,8 +37,8 @@ class Debugger: Node() {
 		}
 	}
 
-	fun breakpointHit(line: Int, file: String?, sunlite: Sunlite, env: Environment?) {
-		(getNode("%DebuggerButton".asNodePath()) as Button).setPressed(true)
+	fun breakpointHit(line: Int, file: String?, sunlite: Sunlite) {
+		/*(getNode("%DebuggerButton".asNodePath()) as Button).setPressed(true)
 		currentBreakpointLine = line
 		currentBreakpointFile = file
 		currentBreakpointEnv = env
@@ -76,10 +73,10 @@ class Debugger: Node() {
 		val statusLabel = getNode("%DebuggerStatusLabel".asNodePath()) as Label
 		statusLabel.setText("Breakpoint hit at line $line!")
 		statusLabel.labelSettings?.setFontColor(Color("ff4040"))
-		(getNode("./VBox/Panel/HBoxContainer/ResumeButton".asNodePath()) as Button).disabled = false
+		(getNode("./VBox/Panel/HBoxContainer/ResumeButton".asNodePath()) as Button).disabled = false*/
 	}
 
-	private fun displayEnvValues(env: Environment){
+	/*private fun displayEnvValues(env: Environment){
 		val envVars = getNode("%EnvVars".asNodePath()) as Tree?
 		envVars?.clear()
 		val root = envVars?.createItem(null)
@@ -89,10 +86,10 @@ class Debugger: Node() {
 			envVar?.setText(0,"$k: $v")
 			loadValues(envVar, v)
 		}
-	}
+	}*/
 
 	private fun loadValues(parent: TreeItem?, value: Any?){
-		when (value) {
+		/*when (value) {
 			is LoxClass -> {
 				value.staticFields.forEach { (t, u) ->
 					val field = parent?.createChild()
@@ -114,7 +111,7 @@ class Debugger: Node() {
 					loadValues(field,u.value)
 				}
 			}
-		}
+		}*/
 
 	}
 
@@ -129,7 +126,7 @@ class Debugger: Node() {
 		}
 		envVars?.clear()
 		scriptTab?.setLineBackgroundColor(currentBreakpointLine-1,Color(0,0,0,0))
-		currentBreakpointInterpreter?.interpreter?.continueExecution = true
+		//currentBreakpointInterpreter?.interpreter?.continueExecution = true
 		currentBreakpointLine = -1
 		currentBreakpointFile = null
 		currentBreakpointEnv = null
