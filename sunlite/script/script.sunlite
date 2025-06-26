@@ -1,0 +1,17 @@
+import "list.lox";
+
+var list: List<number> = List(<number>);
+
+print(list);
+print(list.size());
+list.add(69);
+list.add(420);
+list.add(1337);
+print(list.size());
+list.forEachIndexed(fun(i, o){ print(i + ": " + o); });
+list.remove(420);
+print(list.size());
+list.forEachIndexed(fun(i, o){ print(i + ": " + o); });
+
+var item: number = list.get(1);
+print(item);
