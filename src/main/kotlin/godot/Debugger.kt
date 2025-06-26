@@ -60,10 +60,10 @@ class Debugger: Node() {
 			envs.add(currentEnv)
 			val traceButton = Button()
 			traceButton.setText(currentEnv.toString())
-			traceButton.alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
+			traceButton.alignment = HorizontalAlignment.LEFT
 			traceButton.setMeta("env_index".asStringName(),i)
 			traceButton.addThemeStyleboxOverride("focus".asStringName(), StyleBoxEmpty())
-			traceButton.pressed.connect(flags = godot.api.Object.ConnectFlags.CONNECT_REFERENCE_COUNTED.id.toInt()) {
+			traceButton.pressed.connect(flags = godot.api.Object.ConnectFlags.REFERENCE_COUNTED.id.toInt()) {
 				val index = (traceButton.getMeta("env_index".asStringName()) as Long).toInt()
 				displayEnvValues(envs[index])
 			}

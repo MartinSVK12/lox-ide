@@ -1,6 +1,0 @@
-import "list.lox";
-
-var list: List<number> = List(<number>);
-
-print(getmethods(list));
-print(getfields(list));

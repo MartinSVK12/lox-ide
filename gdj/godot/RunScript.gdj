@@ -7,8 +7,8 @@ relativeSourcePath = src/main/kotlin/godot/RunScript.kt
 baseType = Button
 supertypes = [
     godot.api.Button,
-	sunsetsatellite.lang.lox.LogEntryReceiver,
-	sunsetsatellite.lang.lox.BreakpointListener,
+	sunsetsatellite.lang.sunlite.LogEntryReceiver,
+	sunsetsatellite.lang.sunlite.BreakpointListener,
 	godot.api.BaseButton,
 	godot.api.Control,
 	godot.api.CanvasItem,
