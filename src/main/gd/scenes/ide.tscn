@@ -1073,7 +1073,7 @@ layout_mode = 2
 
 [node name="Label3" type="Label" parent="AddRunConfigDialog/VBox"]
 layout_mode = 2
-text = "Interpreter options:"
+text = "VM options:"
 
 [node name="OptionsLine" type="LineEdit" parent="AddRunConfigDialog/VBox"]
 layout_mode = 2

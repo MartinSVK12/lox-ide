@@ -1,5 +1,5 @@
 extends Node
-class_name LoxStaticCodeHighlighter
+class_name LoxDummyCodeHighlighter
 	
 var cache: Array[LineCache] = []
 var colors: Dictionary = {}

@@ -6,7 +6,7 @@ var keywords := ["and", "class", "else", "false", "for",
 "this", "true", "var", "while", "break", "continue", 
 "static", "native", "interface", "is", "isnt", "import", 
 "dynamic", "any", "string", "number", "boolean", "function", 
-"class", "as"]
+"class", "as", "init"]
 
 var type_keywords := ["any", "string", "number", "boolean", "function", "class", "nil"]
 var control_keywords := ["if","else","while","for","return","and","or","break","continue","is","isnt","as"]

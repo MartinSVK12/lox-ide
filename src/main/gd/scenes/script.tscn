@@ -3,7 +3,7 @@
 [ext_resource type="FontFile" uid="uid://c5p6grn1488p6" path="res://fonts/ttf/JetBrainsMono-Regular.ttf" id="1_ciwkk"]
 [ext_resource type="Script" uid="uid://nolq4xvequbd" path="res://src/main/gd/scripts/lox_highlighter_base.gd" id="2_g3ral"]
 [ext_resource type="Script" uid="uid://bs4js6n3icybt" path="res://src/main/gd/scripts/code_edit.gd" id="3_alg10"]
-[ext_resource type="Script" uid="uid://cbq014dlo472b" path="res://src/main/gd/scripts/lox_static_highlighter.gd" id="4_185f3"]
+[ext_resource type="Script" uid="uid://2ya3l86yiplr" path="res://src/main/gd/scripts/lox_dummy_highlighter.gd" id="4_hwsmu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfwaa"]
 bg_color = Color(0.05, 0.05, 0.05, 1)
@@ -47,7 +47,7 @@ script = ExtResource("3_alg10")
 metadata/_tab_index = 0
 
 [node name="Highlighter" type="Node" parent="."]
-script = ExtResource("4_185f3")
+script = ExtResource("4_hwsmu")
 
 [connection signal="breakpoint_toggled" from="." to="." method="_on_breakpoint_toggled"]
 [connection signal="code_completion_requested" from="." to="." method="_on_code_completion_requested"]
