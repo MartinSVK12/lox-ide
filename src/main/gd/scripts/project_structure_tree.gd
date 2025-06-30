@@ -33,7 +33,7 @@ func create_dir(path: String, dir_name: String, parent: TreeItem):
 	item.set_text(0,dir_name)
 	item.set_icon_max_width(0,16)
 	item.set_icon(0,load("res://src/main/gd/assets/open_dark.svg"))
-	item.set_metadata(0,{"path":path.path_join(dir_name), "type":"dir"})
+	item.set_metadata(0,{"path":path, "type":"dir"})
 	#item.add_button(0,load("res://src/main/gd/assets/add_dark.svg"))
 	#item.add_button(0,load("res://src/main/gd/assets/moreVertical_dark.svg"))
 	return item
@@ -127,9 +127,11 @@ func _on_create_file_dialog_confirmed() -> void:
 		var path = dir_path.path_join(file)
 		if not FileAccess.file_exists(path):
 			var f = FileAccess.open(path,FileAccess.WRITE_READ)
-			f.close()
-			load_file(path)
-			load_folder(get_tree().current_scene.current_folder)
+			push_error(error_string(FileAccess.get_open_error()))
+			if f != null:
+				f.close()
+				load_file(path)
+				load_folder(get_tree().current_scene.current_folder)
 		else:
 			%AlertDialog.dialog_text = "File already exists!"
 			%AlertDialog.popup()

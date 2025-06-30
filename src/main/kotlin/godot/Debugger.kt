@@ -8,15 +8,13 @@ import sunsetsatellite.lang.sunlite.Sunlite
 import sunsetsatellite.vm.sunlite.CallFrame
 import sunsetsatellite.vm.sunlite.SLClass
 import sunsetsatellite.vm.sunlite.SLClassInstance
-import sunsetsatellite.vm.sunlite.SLClassInstanceObj
-import sunsetsatellite.vm.sunlite.SLClassObj
 
 @RegisterClass
 class Debugger: Node() {
 
 	var currentBreakpointLine: Int = -1
 	var currentBreakpointFile: String? = null
-	var currentBreakpointInterpreter: Sunlite? = null
+	var currentVM: Sunlite? = null
 	var currentBreakpointFrame: CallFrame? = null
 	var frames: MutableList<CallFrame> = mutableListOf()
 
@@ -36,7 +34,7 @@ class Debugger: Node() {
 		} else if(RunScript.currentInterpreter == null) {
 			label.setText("No program is running.")
 			label.labelSettings?.setFontColor(Color("808080"))
-			if(currentBreakpointInterpreter != null) {
+			if(currentVM != null) {
 				_on_resume_button_pressed()
 			}
 		}
@@ -47,7 +45,7 @@ class Debugger: Node() {
 		currentBreakpointLine = line
 		currentBreakpointFile = file
 		currentBreakpointFrame = sunlite.vm.frameStack.peek()
-		currentBreakpointInterpreter = sunlite
+		currentVM = sunlite
 		val tree = this.getNode("%ProjectStructureTree".asNodePath()) as Tree?
 		(tree?.get("load_file".asStringName()) as Callable).call(file)
 		val tabs = this.getNode("%ScriptTabs".asNodePath()) as TabContainer?
@@ -78,6 +76,7 @@ class Debugger: Node() {
 		statusLabel.setText("Breakpoint hit at line $line!")
 		statusLabel.labelSettings?.setFontColor(Color("ff4040"))
 		(getNode("./VBox/Panel/HBoxContainer/ResumeButton".asNodePath()) as Button).disabled = false
+		//(getNode("%Evaluator".asNodePath()) as LineEdit).editable = true
 	}
 
 	private fun displayEnvValues(frame: CallFrame){
@@ -119,6 +118,7 @@ class Debugger: Node() {
 	@RegisterFunction
 	fun _on_resume_button_pressed(){
 		(getNode("./VBox/Panel/HBoxContainer/ResumeButton".asNodePath()) as Button).disabled = true
+		(getNode("%Evaluator".asNodePath()) as LineEdit).editable = false
 		val scriptTab = ((this.getNode("%ScriptTabs".asNodePath()) as TabContainer).getCurrentTabControl() as CodeEdit?)
 		val stackTraces = getNode("%StackTraces".asNodePath()) as VBoxContainer?
 		val envVars = getNode("%EnvVars".asNodePath()) as Tree?
@@ -127,12 +127,21 @@ class Debugger: Node() {
 		}
 		envVars?.clear()
 		scriptTab?.setLineBackgroundColor(currentBreakpointLine-1,Color(0,0,0,0))
-		currentBreakpointInterpreter?.vm?.continueExecution = true
+		currentVM?.vm?.continueExecution = true
 		currentBreakpointLine = -1
 		currentBreakpointFile = null
 		currentBreakpointFrame = null
-		currentBreakpointInterpreter = null
+		currentVM = null
 		frames.clear()
+	}
+
+	@RegisterFunction
+	fun _on_evaluator_text_submitted(new_test: String){
+		/*if(currentVM != null){
+			val parsed = currentVM?.parse("print($new_test);")
+			val function = parsed?.let { currentVM?.compile(it.second) }
+			currentVM?.vm?.overrideFunction = function
+		}*/
 	}
 
 }

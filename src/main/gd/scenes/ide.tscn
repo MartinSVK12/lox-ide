@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://b44h7eoec4j0q"]
+[gd_scene load_steps=74 format=3 uid="uid://b44h7eoec4j0q"]
 
 [ext_resource type="FontFile" uid="uid://c5p6grn1488p6" path="res://fonts/ttf/JetBrainsMono-Regular.ttf" id="1_6h5v0"]
 [ext_resource type="Script" uid="uid://dky6jt2mrw3gl" path="res://src/main/gd/scripts/ide.gd" id="1_b8lc2"]
@@ -163,6 +163,15 @@ bg_color = Color(0.133333, 0.133333, 0.133333, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bpuya"]
 font_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78e1l"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k52sx"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 1)
+expand_margin_left = 10.0
+expand_margin_right = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7h1bi"]
 bg_color = Color(0.133333, 0.133333, 0.133333, 1)
@@ -627,6 +636,7 @@ layout_mode = 2
 
 [node name="ErrorLine" parent="Screen/MainPanel/ScriptEdit/VBox/ErrorBar/HBox" instance=ExtResource("21_httbx")]
 layout_mode = 2
+text = "[script.sl, line 7] Error at ')': Unknown type parameter 'T'."
 
 [node name="ErrorCount" type="Label" parent="Screen/MainPanel/ScriptEdit/VBox/ErrorBar/HBox"]
 layout_mode = 2
@@ -702,6 +712,24 @@ label_settings = SubResource("LabelSettings_bpuya")
 [node name="Control" type="Control" parent="Screen/BottomPanel/BottomPanelTabs/Debugger/VBox/Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Evaluator" type="LineEdit" parent="Screen/BottomPanel/BottomPanelTabs/Debugger/VBox/Panel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_78e1l")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_k52sx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k52sx")
+placeholder_text = "Evaluate an expression..."
+editable = false
+clear_button_enabled = true
+
+[node name="Control2" type="Control" parent="Screen/BottomPanel/BottomPanelTabs/Debugger/VBox/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
 
 [node name="ResumeButton" type="Button" parent="Screen/BottomPanel/BottomPanelTabs/Debugger/VBox/Panel/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
@@ -1035,14 +1063,14 @@ unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Add new run configuration?"
 initial_position = 4
-size = Vector2i(419, 312)
+size = Vector2i(419, 372)
 ok_button_text = "Create"
 
 [node name="VBox" type="VBoxContainer" parent="AddRunConfigDialog"]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 411.0
-offset_bottom = 264.0
+offset_bottom = 324.0
 alignment = 1
 
 [node name="Label4" type="Label" parent="AddRunConfigDialog/VBox"]
@@ -1078,12 +1106,19 @@ text = "VM options:"
 [node name="OptionsLine" type="LineEdit" parent="AddRunConfigDialog/VBox"]
 layout_mode = 2
 
+[node name="Label5" type="Label" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Launch arguments:"
+
+[node name="LaunchArgsLine" type="LineEdit" parent="AddRunConfigDialog/VBox"]
+layout_mode = 2
+
 [node name="EditRunConfigDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Edit run configuration?"
 initial_position = 4
-size = Vector2i(419, 312)
+size = Vector2i(419, 372)
 ok_button_text = "Save"
 script = ExtResource("31_5ymey")
 
@@ -1091,7 +1126,7 @@ script = ExtResource("31_5ymey")
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 411.0
-offset_bottom = 264.0
+offset_bottom = 324.0
 alignment = 1
 
 [node name="Label4" type="Label" parent="EditRunConfigDialog/VBox"]
@@ -1122,9 +1157,16 @@ layout_mode = 2
 
 [node name="Label3" type="Label" parent="EditRunConfigDialog/VBox"]
 layout_mode = 2
-text = "Interpreter options:"
+text = "VM options:"
 
 [node name="OptionsLine" type="LineEdit" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="EditRunConfigDialog/VBox"]
+layout_mode = 2
+text = "Launch arguments:"
+
+[node name="LaunchArgsLine" type="LineEdit" parent="EditRunConfigDialog/VBox"]
 layout_mode = 2
 
 [node name="CodeAnalysis" type="Node" parent="."]
@@ -1149,6 +1191,7 @@ autostart = true
 [connection signal="tab_button_pressed" from="Screen/MainPanel/ScriptEdit/VBox/ScriptTabs" to="Screen/MainPanel/ScriptEdit/VBox/ScriptTabs" method="_on_tab_button_pressed"]
 [connection signal="tab_changed" from="Screen/MainPanel/ScriptEdit/VBox/ScriptTabs" to="Screen/MainPanel/ScriptEdit/VBox/ScriptTabs" method="_on_tab_changed"]
 [connection signal="tab_selected" from="Screen/MainPanel/ScriptEdit/VBox/ScriptTabs" to="Screen/MainPanel/ScriptEdit/VBox/ScriptTabs" method="_on_tab_selected"]
+[connection signal="text_submitted" from="Screen/BottomPanel/BottomPanelTabs/Debugger/VBox/Panel/HBoxContainer/Evaluator" to="Screen/BottomPanel/BottomPanelTabs/Debugger" method="_on_evaluator_text_submitted"]
 [connection signal="pressed" from="Screen/BottomPanel/BottomPanelTabs/Debugger/VBox/Panel/HBoxContainer/ResumeButton" to="Screen/BottomPanel/BottomPanelTabs/Debugger" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Screen/BottomPanel/BottomPanelTabs/Terminal/HBox/VBox/ClearTerminalButton" to="Screen/BottomPanel/BottomPanelTabs/Terminal/HBox/TerminalWindow" method="_on_clear_terminal_button_pressed"]
 [connection signal="canceled" from="FileDialog" to="Screen/TopToolbar/VBox/FileButton" method="_on_file_dialog_canceled"]

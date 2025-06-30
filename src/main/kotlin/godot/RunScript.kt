@@ -93,10 +93,12 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 		var file: String = currentScriptTab.get("file".asStringName()).toString()
 		var folders: Array<String> = (getTree()?.currentScene?.get("folders".asStringName()) as VariantArray<String>).toTypedArray()
 		var options = ""
+		var launchArgs = ""
 		if(cfg != null){
 			file = cfg.get("file_name".asStringName()).toString()
 			folders = cfg.get("load_path".asStringName()).toString().split(";").toTypedArray()
 			options = cfg.get("options".asStringName()).toString()
+			launchArgs = cfg.get("launch_args".asStringName()).toString()
 		}
 		val breakpoints: MutableMap<String,IntArray> = mutableMapOf()
 		tabs.getChildren().forEach { node ->
@@ -105,14 +107,14 @@ class RunScript: Button(), LogEntryReceiver, BreakpointListener {
 			breakpoints[tabFile.split("/").last()] = breakpointedLines.toIntArray().map { it.inc() }.toIntArray()
 		}
 		if(file != ""){
-			currentInterpreter = Sunlite(arrayOf(file,folders.joinToString(";"),options))
+			currentInterpreter = Sunlite(arrayOf(file,folders.joinToString(";"),options,launchArgs))
 			currentThread = thread(
 				start = true,
-				name = "Lox Interpreter",
+				name = "Sunlite Interpreter",
 			) {
 				currentInterpreter!!.logEntryReceivers.add(this)
 				currentInterpreter!!.breakpointListeners.add(this)
-				GdLoxGlobals.registerGlobals(currentInterpreter!!)
+				//GdLoxGlobals.registerGlobals(currentInterpreter!!)
 				if(isDebug) currentInterpreter!!.breakpoints = breakpoints
 				currentInterpreter!!.start()
 			}

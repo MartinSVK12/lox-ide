@@ -7,10 +7,14 @@ import godot.api.CodeEdit
 import godot.api.Node
 import godot.api.TabContainer
 import godot.core.*
+import godot.global.GD
+import sunsetsatellite.lang.sunlite.Expr
 import sunsetsatellite.lang.sunlite.LogEntryReceiver
 import sunsetsatellite.lang.sunlite.Sunlite
 import sunsetsatellite.lang.sunlite.Stmt
+import sunsetsatellite.lang.sunlite.SymbolFinder
 import sunsetsatellite.lang.sunlite.Token
+import sunsetsatellite.lang.sunlite.TypeCollector
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.lang.Thread
@@ -21,6 +25,7 @@ class CodeAnalysis: Node() {
 
     companion object {
         var inProgress = false
+        var lastAnalysis: Pair<List<Token>,List<Stmt>>? = null
     }
 
     @RegisterSignal("errors","tokens")
@@ -40,6 +45,7 @@ class CodeAnalysis: Node() {
 
     fun analysisFinished(errors: List<String>, result: Pair<List<Token>,List<Stmt>>? = null){
         inProgress = false
+        lastAnalysis = result
         val tokens = result?.first?.map { dictionaryOf<Any?,Any?>(
             "name" to it.type.name,
             "type" to it.type.group.name,
@@ -64,6 +70,19 @@ class CodeAnalysis: Node() {
         CodeAnalysisThread(this).analyze(file,folders,code)
     }
 
+    @RegisterFunction
+    fun _on_symbol_hovered(symbol: String, line: Int, column: Int): String {
+        //GD.print("Hovered $symbol on line $line, column $column")
+        //GD.print("Last analysis available: ${lastAnalysis != null}")
+	    lastAnalysis?.let {
+            val foundElement = SymbolFinder(symbol, line+1, column).find(it.second)
+            if(foundElement is Expr){
+                return foundElement.getExprType().toString()
+            }
+        }
+        return "unknown"
+    }
+
     class CodeAnalysisThread(val analysis: CodeAnalysis) : LogEntryReceiver {
 
         private val errors: MutableList<String> = ArrayList()
@@ -85,14 +104,18 @@ class CodeAnalysis: Node() {
             inProgress = true
             thread = thread(
                 start = true,
-                name = "Lox Code Analysis",
+                name = "Sunlite Code Analysis",
             ) {
                 val sunlite = Sunlite(arrayOf(file,loadPath.joinToString(";")))
                 sunlite.logEntryReceivers.add(this)
-                GdLoxGlobals.registerGlobals(sunlite)
+                //GdLoxGlobals.registerGlobals(sunlite)
                 val result = sunlite.parse(code)
-                result ?: analysis.analysisFinished(errors)
-                analysis.analysisFinished(errors,result)
+                if(result == null){
+                    analysis.analysisFinished(errors)
+                    return@thread
+                } else {
+                    analysis.analysisFinished(errors,result.first to result.second)
+                }
             }
             thread!!.setUncaughtExceptionHandler { t, e ->
                 if (e is ThreadDeath) return@setUncaughtExceptionHandler

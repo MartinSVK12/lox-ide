@@ -22,5 +22,6 @@ properties = [
 functions = [
     _ready,
 	_process,
-	_on_timer_timeout
+	_on_timer_timeout,
+	_on_symbol_hovered
 ]

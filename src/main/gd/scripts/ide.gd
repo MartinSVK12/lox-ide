@@ -22,7 +22,7 @@ func _ready() -> void:
 			if data.size() == 4 and data[3] != null:
 				var cfgs: Array[Dictionary] = data[3]
 				for cfg in cfgs:
-					%RunConfigButton.run_configs.append(RunConfigButton.RunConfig.new(cfg["name"],cfg["file"],cfg["path"],cfg["options"]))
+					%RunConfigButton.run_configs.append(RunConfigButton.RunConfig.new(cfg["name"],cfg["file"],cfg["path"],cfg["options"],cfg["launchArgs"]))
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -37,7 +37,8 @@ func _notification(what: int) -> void:
 				"name": cfg.config_name,
 				"file": cfg.file_name,
 				"path": cfg.load_path,
-				"options": cfg.options
+				"options": cfg.options,
+				"launchArgs": cfg.launch_args
 			})
 		SaveSystem.save_data([current_file,current_folder,opened_files,run_configs],"workspace")
 

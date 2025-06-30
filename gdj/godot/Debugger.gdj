@@ -22,5 +22,6 @@ properties = [
 functions = [
     _ready,
 	_process,
-	_on_resume_button_pressed
+	_on_resume_button_pressed,
+	_on_evaluator_text_submitted
 ]

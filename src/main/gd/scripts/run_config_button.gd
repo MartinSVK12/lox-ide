@@ -53,25 +53,29 @@ func _on_add_run_config_dialog_confirmed() -> void:
 	var file = %AddRunConfigDialog/VBox/FileName.text
 	var path = %AddRunConfigDialog/VBox/PathLine.text
 	var opts = %AddRunConfigDialog/VBox/OptionsLine.text
+	var args = %AddRunConfigDialog/VBox/LaunchArgsLine.text
 	
 	%AddRunConfigDialog/VBox/ConfigName.text = ""
 	%AddRunConfigDialog/VBox/FileName.text = ""
 	%AddRunConfigDialog/VBox/PathLine.text = ""
 	%AddRunConfigDialog/VBox/OptionsLine.text = ""
+	%AddRunConfigDialog/VBox/LaunchArgsLine.text = ""
 
-	run_configs.append(RunConfig.new(cfg,file,path,opts))
+	run_configs.append(RunConfig.new(cfg,file,path,opts,args))
 
 class RunConfig:
 	var config_name: String
 	var file_name: String
 	var load_path: String
 	var options: String
+	var launch_args: String
 	
-	func _init(cfg: String, file: String, path: String, opts: String) -> void:
+	func _init(cfg: String, file: String, path: String, opts: String, args: String) -> void:
 		config_name = cfg
 		file_name = file
 		load_path = path
 		options = opts
+		launch_args = args
 		pass
 
 

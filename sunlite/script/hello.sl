@@ -1,14 +1,10 @@
-class A {
-    init(str) {
-        this.initString = str;
-        this.n = 3;
-        print(str);
-    }
-    
-    fun do(something) {
-        this.n = this.n * something;
-    }
+var arr = arrayOf(5);
+
+fun removeAt(a,i) {
+    a[i] = nil;
 }
 
-var a = A("hi");
-print(a.do(3));
+arr[1] = "yeet";
+print(arr[1]);
+removeAt(arr,1);
+print(arr[1]);
